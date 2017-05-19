@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://obscure-headland-52142.herokuapp.com/api'
+  api_url: 'https://obscure-headland-52142.herokuapp.com/api'
 };
