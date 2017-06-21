@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArticleListConfig, TagsService, UserService } from '../shared';
+import { NotificationsService } from 'angular2-notifications';
+
 
 @Component({
   selector: 'home-page',
@@ -11,7 +13,8 @@ export class HomeComponent implements OnInit{
   constructor(
     private router: Router,
     private tagsService: TagsService,
-    private userService: UserService
+    private userService: UserService,
+    private _service: NotificationsService
   ) {}
 
   isAuthenticated: boolean;
@@ -38,9 +41,25 @@ export class HomeComponent implements OnInit{
       });
   }
 
+  public options = {
+    position: ["top", "left"],
+    timeOut: 2000,
+    lastOnBottom: true,
+    showProgressBar: true,
+    clickToClose: false,
+    maxStack: 1,
+    preventDuplicates: true
+  };
+
   setListTo(type: string = '', filters: Object = {}){
     if (type === 'feed' && !this.isAuthenticated) {
-      this.router.navigateByUrl('/login');
+      this._service.error(
+          'You must login in.',
+          'Wait for 2 second to login in page'
+      );
+      setTimeout(() => {
+        this.router.navigateByUrl('/login');
+      }, 2000);
       return;
     }
     this.listConfig = {type: type, filters: filters};

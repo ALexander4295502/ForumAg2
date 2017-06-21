@@ -39,7 +39,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     rootRouting,
     SharedModule,
     SettingsModule,
-    EditorModule
+    EditorModule,
   ],
   providers: [
     ArticlesService,

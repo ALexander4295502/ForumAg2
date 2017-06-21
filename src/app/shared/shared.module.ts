@@ -7,6 +7,9 @@ import { ArticleMetaComponent, ArticleListComponent, ArticlePreviewComponent } f
 import { FavoriteButtonComponent, FollowButtonComponent } from './buttons';
 import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -14,7 +17,10 @@ import { ShowAuthedDirective } from './show-authed.directive';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule
+    RouterModule,
+    SimpleNotificationsModule.forRoot(),
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     ArticleMetaComponent,
