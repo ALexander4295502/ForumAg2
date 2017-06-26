@@ -19,7 +19,8 @@ import {
   ProfilesService,
   TagsService,
   AuthGuard,
-  ArticlesService
+  ArticlesService,
+  PageViewCountService
 } from './shared';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
@@ -49,7 +50,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     JwtService,
     ProfilesService,
     TagsService,
-    UserService
+    UserService,
+    PageViewCountService
   ],
   bootstrap: [AppComponent]
 })

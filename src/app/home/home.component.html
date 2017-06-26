@@ -4,6 +4,8 @@
     <div class="container">
       <h1 class="logo-font">Forum</h1>
       <p>A place to share your <i>Story</i>.</p>
+      <p>View Count: <i counto [step]="100" [countTo]=pageViewCount [countFrom]="0" [duration]="4" (countoChange)="counto = $event" >{{counto | number:'5.0-0'}}</i></p>
+
     </div>
   </div>
 

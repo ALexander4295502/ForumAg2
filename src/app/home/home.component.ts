@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArticleListConfig, TagsService, UserService } from '../shared';
+import { ArticleListConfig, TagsService, UserService, PageViewCountService } from '../shared';
 import { NotificationsService } from 'angular2-notifications';
 
 
@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit{
     private router: Router,
     private tagsService: TagsService,
     private userService: UserService,
+    private pageViewCountService: PageViewCountService,
     private _service: NotificationsService
   ) {}
 
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit{
   listConfig: ArticleListConfig = new ArticleListConfig();
   tags: Array<string> = [];
   tagsLoaded: boolean = false;
+  pageViewCount: number = 0;
 
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
@@ -33,6 +35,15 @@ export class HomeComponent implements OnInit{
         }
       }
     );
+
+    this.pageViewCountService.update().subscribe(data => {
+      this.pageViewCountService.get().subscribe(
+          (_pageViewCount) => {
+            this.pageViewCount = _pageViewCount;
+          });
+    });
+
+
 
     this.tagsService.getAll()
       .subscribe(tags => {
@@ -64,4 +75,6 @@ export class HomeComponent implements OnInit{
     }
     this.listConfig = {type: type, filters: filters};
   }
+
+
 }

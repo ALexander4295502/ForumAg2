@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HomeAuthResolver } from './home-auth-resolver.service';
+import { CountoModule } from 'angular2-counto';
 import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared';
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -20,8 +21,9 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     homeRouting,
     SharedModule,
-      SimpleNotificationsModule.forRoot(),
-      BrowserAnimationsModule
+    SimpleNotificationsModule.forRoot(),
+    BrowserAnimationsModule,
+    CountoModule
   ],
   declarations: [
     HomeComponent
