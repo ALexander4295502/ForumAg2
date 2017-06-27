@@ -5,6 +5,8 @@ import { AuthComponent } from './auth.component';
 import { NoAuthGuard } from './no-auth-guard.service';
 import { SharedModule } from '../shared';
 
+import { AuthResolver } from './auth-resolver.service'
+
 const authRouting: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'login',
@@ -15,6 +17,14 @@ const authRouting: ModuleWithProviders = RouterModule.forChild([
     path: 'register',
     component: AuthComponent,
     canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'email-verification/:url',
+    component: AuthComponent,
+    canActivate: [NoAuthGuard],
+    resolve: {
+      user: AuthResolver
+    }
   }
 ]);
 
@@ -28,7 +38,8 @@ const authRouting: ModuleWithProviders = RouterModule.forChild([
   ],
 
   providers: [
-    NoAuthGuard
+    NoAuthGuard,
+    AuthResolver
   ]
 })
 export class AuthModule {}

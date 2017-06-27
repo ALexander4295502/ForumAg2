@@ -64,7 +64,9 @@ export class UserService {
     return this.apiService.post('/users' + route, {user: credentials})
       .map(
         data => {
-          this.setAuth(data.user);
+          if(type === 'login'){
+            this.setAuth(data.user);
+          }
           return data;
         }
       );
@@ -83,6 +85,16 @@ export class UserService {
         this.currentUserSubject.next(data.user);
         return data.user;
       });
+  }
+
+  emailVerify(url): Observable<User> {
+    return this.apiService.get('/users/email-verification/'+url)
+        .map(res => {
+          if(res.user != null) {
+            this.setAuth(res.user);
+          }
+          return res;
+        });
   }
 
 }

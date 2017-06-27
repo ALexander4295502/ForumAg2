@@ -4877,6 +4877,10 @@ footer .attribution {
     color: #B85C5C !important;
     font-weight: bold; }
 
+.normal-messages {
+    color: #2980b9 !important;
+    font-weight: bold; }
+
 .banner {
     color: #fff;
     background: #333;

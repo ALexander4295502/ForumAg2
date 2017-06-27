@@ -12,6 +12,7 @@ export class AuthComponent implements OnInit {
   title: String = '';
   isSubmitting: boolean = false;
   authForm: FormGroup;
+  message: String = '';
   errors: Errors = new Errors();
 
   constructor(
@@ -31,6 +32,10 @@ export class AuthComponent implements OnInit {
     this.route.url.subscribe(data => {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;
+      if(this.authType.length > 20){
+        this.authType = 'email-verification';
+      }
+      console.log("the authType is "+this.authType);
       // Set a title for the page accordingly
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
       // add form control for username if this is the register page
@@ -46,12 +51,18 @@ export class AuthComponent implements OnInit {
     let credentials = this.authForm.value;
     this.userService.attemptAuth(this.authType, credentials)
       .subscribe(
-        data => this.router.navigateByUrl('/'),
+        data => {
+          if(this.authType == 'login'){
+            this.router.navigateByUrl('/');
+          }
+          console.log(data);
+          this.message = data['msg'];
+        },
         err => {
           this.errors = err;
+          console.log(this.errors);
           this.isSubmitting = false;
         }
       );
-    console.log(credentials);
   }
 }
