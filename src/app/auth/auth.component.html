@@ -5,10 +5,13 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">{{ title }}</h1>
         <h2 class="text-xs-center" *ngIf="authType == 'email-verification'">Your account has been successfully verified.</h2>
+        <h2 class="text-xs-center" *ngIf="authType == 'resetConfirmed'">Your is password reset successfully.</h2>
         <p class="text-xs-center">
           <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
           <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
-          <a [routerLink]="['/']" *ngIf="authType == 'email-verification'">Go to home page.</a>
+          <br>
+          <a [routerLink]="['/forgot']" *ngIf="authType == 'login'">Forgot your password?</a>
+          <a [routerLink]="['/']" *ngIf="authType == 'email-verification' || authType == 'resetConfirmed'">Go to home page.</a>
         </p>
         <list-errors [errors]="errors"></list-errors>
         <ul class="normal-messages" *ngIf="message != ''">
@@ -17,28 +20,46 @@
           </li>
         </ul>
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-          <fieldset [disabled]="isSubmitting" *ngIf="authType != 'email-verification'">
+          <fieldset [disabled]="isSubmitting" *ngIf="authType != 'email-verification' && authType != 'resetConfirmed' ">
             <fieldset class="form-group">
               <input
                 formControlName="username"
                 placeholder="Username"
                 class="form-control form-control-lg"
                 type="text"
-                *ngIf="authType == 'register'" />
+                *ngIf="authType == 'register' && authType != 'forgot' && authType != 'reset'" />
             </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="email"
                 placeholder="Email"
                 class="form-control form-control-lg"
-                type="text" />
+                type="text"
+                *ngIf="authType != 'reset'"/>
             </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="password"
                 placeholder="Password"
                 class="form-control form-control-lg"
-                type="password" />
+                type="password"
+                *ngIf="authType != 'forgot' && authType != 'reset'"/>
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                      formControlName="newPassword"
+                      placeholder="New Password"
+                      class="form-control form-control-lg"
+                      type="password"
+                      *ngIf="authType == 'reset'" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                      formControlName="confirmPassword"
+                      placeholder="Confirm Password"
+                      class="form-control form-control-lg"
+                      type="password"
+                      *ngIf="authType == 'reset'" />
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
               {{ title }}

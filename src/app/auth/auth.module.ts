@@ -3,9 +3,10 @@ import { RouterModule } from '@angular/router';
 
 import { AuthComponent } from './auth.component';
 import { NoAuthGuard } from './no-auth-guard.service';
-import { SharedModule } from '../shared';
+import { AuthGuard, SharedModule } from '../shared';
 
-import { AuthResolver } from './auth-resolver.service'
+import { AuthResolver } from './auth-resolver.service';
+import { AuthResetPasswordResolver } from './auth-resetPassword-resolver.service';
 
 const authRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -25,7 +26,20 @@ const authRouting: ModuleWithProviders = RouterModule.forChild([
     resolve: {
       user: AuthResolver
     }
-  }
+  },
+  {
+    path: 'forgot',
+    component: AuthComponent,
+    canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'reset/:token',
+    component: AuthComponent,
+    canActivate: [NoAuthGuard],
+    resolve: {
+      user: AuthResetPasswordResolver
+    }
+  },
 ]);
 
 @NgModule({
@@ -39,7 +53,8 @@ const authRouting: ModuleWithProviders = RouterModule.forChild([
 
   providers: [
     NoAuthGuard,
-    AuthResolver
+    AuthResolver,
+    AuthResetPasswordResolver,
   ]
 })
 export class AuthModule {}

@@ -76,6 +76,13 @@ export class UserService {
     return this.currentUserSubject.value;
   }
 
+  forgotPassword(credentials){
+    console.log(credentials.email);
+    return this.apiService.post('/users/forgot', {email: credentials.email}).map(res => {
+      return res;
+    });
+  }
+
   // Update the user on the server (email, pass, etc)
   update(user): Observable<User> {
     return this.apiService
@@ -87,6 +94,7 @@ export class UserService {
       });
   }
 
+
   emailVerify(url): Observable<User> {
     return this.apiService.get('/users/email-verification/'+url)
         .map(res => {
@@ -95,6 +103,25 @@ export class UserService {
           }
           return res;
         });
+  }
+
+  getResetPasswordUser(token): Observable<User> {
+    return this.apiService.get('/users/reset/'+token)
+        .map(res => {
+          if(res.user != null) {
+            return res.user;
+          }
+          return res.json({errors: 'In getResetPasswordUser user cannot find' });
+        });
+  }
+
+  resetPassword(token, password) {
+    return this.apiService.post('/users/reset/'+token, {password: password})
+        .map(
+            res => {
+              return res;
+            }
+        );
   }
 
 }
