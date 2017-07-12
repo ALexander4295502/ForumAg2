@@ -3,7 +3,7 @@
  */
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 import { EditorComponent } from './editor.component';
 import { EditableArticleResolver } from './editable-article-resolver.service';
 import { AuthGuard, SharedModule } from '../shared';
@@ -27,7 +27,8 @@ const editorRouting: ModuleWithProviders = RouterModule.forChild([
 @NgModule({
   imports: [
     editorRouting,
-    SharedModule
+    SharedModule,
+    CKEditorModule
   ],
   declarations: [
     EditorComponent

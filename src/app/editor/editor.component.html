@@ -23,11 +23,32 @@
             </fieldset>
 
             <fieldset class="form-group">
-              <textarea class="form-control"
-                        formControlName="body"
-                        rows="8"
-                        placeholder="Write your article (in markdown)">
-              </textarea>
+              <ckeditor
+                      [(ngModel)]="ckeditorContent"
+                      [ngModelOptions]="{standalone: true}"
+                      [config]="{
+                      extraPlugins: 'divarea',
+                      uiColor: '#2980b9',
+                      forcePasteAsPlainText: true,
+                      toolbar:
+                        [
+                            ['Source'],
+                            ['Preview','Cut','Copy','Paste','PasteText','PasteFromWord'],
+                            ['Undo','Redo','-','SelectAll','RemoveFormat'],
+                            '/',
+                            ['Bold','Italic','-','Subscript','Superscript'],
+                            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                            ['Link','Unlink','Anchor'],
+                            ['Image','Table','SpecialChar'],
+                            '/',
+                            ['Styles','Format','FontSize'],
+                            ['TextColor'],
+                            ['Maximize', 'ShowBlocks']
+                        ]
+                      }"
+                      debounce="500">
+              </ckeditor>
             </fieldset>
 
             <fieldset class="form-group">

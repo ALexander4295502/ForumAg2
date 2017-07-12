@@ -27,6 +27,7 @@ export class ArticleComponent implements OnInit {
   comments: Comment[];
   commentControl = new FormControl();
   commentFormErrors = {};
+  ckeditorContent: string
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class ArticleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ckeditorContent = "Write comment here : )";
     // Retreive the prefetched article
     this.route.data.subscribe(
       (data: { article: Article }) => {
@@ -88,17 +90,18 @@ export class ArticleComponent implements OnInit {
   addComment() {
     this.isSubmitting = true;
     this.commentFormErrors = {};
-    let commentBody = this.commentControl.value;
+    let commentBody = this.ckeditorContent;
     this.commentsService
       .add(this.article.slug, commentBody)
       .subscribe(
         comment => {
           this.comments.unshift(comment);
-          this.commentControl.reset('');
+          this.ckeditorContent = "Write comment here : )";
           this.isSubmitting = false;
         },
         errors => {
           this.isSubmitting = false;
+          this.ckeditorContent = "Write comment here : )";
           this.commentFormErrors = errors;
         }
       );

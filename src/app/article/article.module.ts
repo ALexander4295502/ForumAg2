@@ -3,7 +3,7 @@
  */
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 import { ArticleComponent } from './article.component';
 import { ArticleResolver } from './article-resolver.service';
 import { MarkdownPipe } from './markdown.pipe';
@@ -23,7 +23,8 @@ const articleRouting: ModuleWithProviders = RouterModule.forChild([
 @NgModule({
   imports: [
     articleRouting,
-    SharedModule
+    SharedModule,
+    CKEditorModule
   ],
   declarations: [
     ArticleComponent,

@@ -11,20 +11,22 @@ import { Article, ArticlesService } from '../shared';
   selector: 'editor-page',
   templateUrl: './editor.component.html'
 })
+
 export class EditorComponent implements OnInit {
   article: Article = new Article();
   articleForm: FormGroup;
   tagField = new FormControl();
   errors: Object = {};
   isSubmitting: boolean = false;
+  ckeditorContent: string
 
   constructor(
     private articlesService: ArticlesService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
-    // use the FormBuilder to create a form group
+  // use the FormBuilder to create a form group
     this.articleForm = this.fb.group({
       title: '',
       description: '',
@@ -41,6 +43,9 @@ export class EditorComponent implements OnInit {
         if (data.article) {
           this.article = data.article;
           this.articleForm.patchValue(data.article);
+          this.ckeditorContent = data.article.body;
+        } else {
+          this.ckeditorContent = "Write something about the article : )"
         }
       }
     );
@@ -66,8 +71,9 @@ export class EditorComponent implements OnInit {
   }
 
   submitForm() {
-    this.isSubmitting = true;
 
+    this.isSubmitting = true;
+    this.articleForm.value["body"] = this.ckeditorContent;
     // update the model
     this.updateArticle(this.articleForm.value);
 
@@ -75,7 +81,12 @@ export class EditorComponent implements OnInit {
     this.articlesService
       .save(this.article)
       .subscribe(
-        article => this.router.navigateByUrl('/article/' + article.slug),
+        data => {
+          console.log(data);
+          if (data != null) {
+            this.router.navigateByUrl('/article/' + data["article"]["slug"]);
+          }
+        },
         err => {
           this.errors = err;
           this.isSubmitting = false;

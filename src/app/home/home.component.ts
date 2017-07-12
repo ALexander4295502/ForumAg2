@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit{
   pageViewCount: number = 0;
 
   ngOnInit() {
+
     this.userService.isAuthenticated.subscribe(
       (authenticated) => {
         this.isAuthenticated = authenticated;

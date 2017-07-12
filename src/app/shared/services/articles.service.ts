@@ -24,12 +24,12 @@ export class ArticlesService {
     // If we're updating an existing article
     if (article.slug) {
       return this.apiService.put('/articles/' + article.slug, {article: article})
-        .map(data => data.article);
+        .map(data => data);
 
       // Otherwise, create a new article
     } else {
       return this.apiService.post('/articles/', {article: article})
-        .map(data => data.article);
+        .map(data => data);
     }
   }
 

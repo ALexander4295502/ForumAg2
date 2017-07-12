@@ -1953,10 +1953,10 @@ fieldset[disabled] a.btn {
     border-color: #a3d7a3; }
 
 .btn-outline-secondary {
-    color: #ccc;
+    color: #2980b9;
     background-image: none;
     background-color: transparent;
-    border-color: #ccc; }
+    border-color: #2980b9; }
 .btn-outline-secondary:hover {
     color: #fff;
     background-color: #ccc;

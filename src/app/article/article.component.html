@@ -32,7 +32,7 @@
     <div class="row article-content">
       <div class="col-md-12">
 
-        <div [innerHTML]="article.body | markdown"></div>
+        <div [innerHTML]="article.body"></div>
 
         <ul class="tag-list">
           <li *ngFor="let tag of article.tagList"
@@ -73,16 +73,39 @@
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
 
+        <article-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="onDeleteComment(comment)"></article-comment>
+
         <div *showAuthed="true">
           <list-errors [errors]="commentFormErrors"></list-errors>
           <form class="card comment-form" (ngSubmit)="addComment()">
             <fieldset [disabled]="isSubmitting">
               <div class="card-block">
-                <textarea class="form-control"
-                          placeholder="Write a comment..."
-                          rows="3"
-                          [formControl]="commentControl">
-                </textarea>
+                <ckeditor
+                        [(ngModel)]="ckeditorContent"
+                        [ngModelOptions]="{standalone: true}"
+                        [config]="{
+                      extraPlugins: 'divarea',
+                      uiColor: '#2980b9',
+                      forcePasteAsPlainText: true,
+                      toolbar:
+                        [
+                            ['Source'],
+                            ['Preview','Cut','Copy','Paste','PasteText','PasteFromWord'],
+                            ['Undo','Redo','-','SelectAll','RemoveFormat'],
+                            '/',
+                            ['Bold','Italic','-','Subscript','Superscript'],
+                            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                            ['Link','Unlink','Anchor'],
+                            ['Image','Table','SpecialChar'],
+                            '/',
+                            ['Styles','Format','FontSize'],
+                            ['TextColor'],
+                            ['Maximize', 'ShowBlocks']
+                        ]
+                      }"
+                        debounce="500">
+                </ckeditor>
               </div>
               <div class="card-footer">
                 <img [src]="currentUser.image" class="comment-author-img" />
@@ -97,8 +120,6 @@
         <div *showAuthed="false">
           <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this article.
         </div>
-
-        <article-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="onDeleteComment(comment)"></article-comment>
 
       </div>
     </div>

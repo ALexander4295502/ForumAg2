@@ -1,8 +1,6 @@
 <div class="card">
   <div class="card-block">
-    <p class="card-text">
-      {{ comment.body }}
-    </p>
+    <div [innerHTML]="comment.body"></div>
   </div>
   <div class="card-footer">
     <a class="comment-author" [routerLink]="['/profile',comment.author.username]">
@@ -13,7 +11,7 @@
       {{ comment.author.username }}
     </a>
     <span class="date-posted">
-      {{ comment.createdAt | date: 'longDate' }}
+      {{ comment.createdAt | date: 'medium' }}
     </span>
     <span class="mod-options" [hidden]="!canModify">
       <i class="ion-trash-a" (click)="deleteClicked()" ></i>
