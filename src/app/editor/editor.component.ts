@@ -76,13 +76,11 @@ export class EditorComponent implements OnInit {
     this.articleForm.value["body"] = this.ckeditorContent;
     // update the model
     this.updateArticle(this.articleForm.value);
-
-    // post the changes
+      // post the changes
     this.articlesService
       .save(this.article)
       .subscribe(
         data => {
-          console.log(data);
           if (data != null) {
             this.router.navigateByUrl('/article/' + data["article"]["slug"]);
           }
