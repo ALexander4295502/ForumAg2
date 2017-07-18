@@ -30,4 +30,9 @@ export class CommentsService {
     return this.apiService.delete(`/articles/${articleSlug}/comments/${commentId}`);
   }
 
+  update(commentId, articleSlug, payload): Observable<Comment> {
+    return this.apiService.put(`/articles/${articleSlug}/comments/${commentId}`, { comment: { body: payload } })
+        .map(data => data.comment);
+  }
+
 }

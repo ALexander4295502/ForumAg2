@@ -13,7 +13,7 @@
 
           <button class="btn btn-sm btn-outline-danger"
                   [ngClass]="{disabled: isDeleting}"
-                  (click)="deleteArticle()">
+                  (click)="onDelete(article)">
             <i class="ion-trash-a"></i> Delete Article
           </button>
         </span>
@@ -32,8 +32,7 @@
     <div class="row article-content">
       <div class="col-md-12">
 
-        <div [innerHTML]="article.body"></div>
-
+        <div [innerHTML]="article.body | sanitizeHtml"></div>
         <ul class="tag-list">
           <li *ngFor="let tag of article.tagList"
               class="tag-default tag-pill tag-outline">
@@ -43,6 +42,10 @@
 
       </div>
     </div>
+
+    <span class="article-update-data-posted" *ngIf="article.createdAt !== article.updatedAt">
+          Updated at {{ article.updatedAt | date: 'medium' }}
+    </span>
 
     <hr />
 
@@ -56,7 +59,7 @@
 
           <button class="btn btn-sm btn-outline-danger"
                   [ngClass]="{disabled: isDeleting}"
-                  (click)="deleteArticle()">
+                  (click)="onDelete(article)">
             <i class="ion-trash-a"></i> Delete Article
           </button>
         </span>
@@ -70,20 +73,16 @@
       </article-meta>
     </div>
 
-    <div class="row">
-      <div class="col-xs-12 col-md-8 offset-md-2">
-
-        <article-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="onDeleteComment(comment)"></article-comment>
-
-        <div *showAuthed="true">
-          <list-errors [errors]="commentFormErrors"></list-errors>
-          <form class="card comment-form" (ngSubmit)="addComment()">
-            <fieldset [disabled]="isSubmitting">
-              <div class="card-block">
-                <ckeditor
-                        [(ngModel)]="ckeditorContent"
-                        [ngModelOptions]="{standalone: true}"
-                        [config]="{
+    <div>
+      <modal #commentModal>
+        <modal-header [show-close]="true">
+          <h4 class="modal-title">Edit your comment</h4>
+        </modal-header>
+        <modal-body>
+          <ckeditor *ngIf="editCommentActive"
+                    [(ngModel)]="ckeditorCommentContent"
+                    [ngModelOptions]="{standalone: true}"
+                    [config]="{
                       extraPlugins: 'divarea',
                       uiColor: '#2980b9',
                       forcePasteAsPlainText: true,
@@ -104,7 +103,46 @@
                             ['Maximize', 'ShowBlocks']
                         ]
                       }"
-                        debounce="500">
+                    debounce="0">
+          </ckeditor>
+        </modal-body>
+        <modal-footer [show-default-buttons]="false">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="commentModal.dismiss()">Cancel</button>
+          <button type="button" class="btn btn-primary" [disabled]="(ckeditorCommentContent.trim() === '')" (click)="onEditSubmit()">Save</button>
+        </modal-footer>
+      </modal>
+
+      <modal #deleteConfirmModal>
+        <modal-header [show-close]="true">
+          <h4 class="modal-title">Delete your {{deleteModalTitle}}</h4>
+        </modal-header>
+        <modal-body>
+          Are you sure to delete your {{deleteModalTitle}} ?
+        </modal-body>
+        <modal-footer [show-default-buttons]="false">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteConfirmModal.dismiss()">Cancel</button>
+          <button type="button" class="btn btn-primary" *ngIf="deleteModalTitle === 'comment'" (click)="confirmDeleteComment()">Confirm</button>
+          <button type="button" class="btn btn-primary" *ngIf="deleteModalTitle === 'article'" (click)="deleteArticle()">Confirm</button>
+        </modal-footer>
+      </modal>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+
+        <article-comment *ngFor="let comment of comments" [comment]="comment" (deleteComment)="onDelete(comment)" (editComment)="onEditOpen(comment)"></article-comment>
+
+        <div *showAuthed="true">
+          <list-errors [errors]="commentFormErrors"></list-errors>
+          <form class="card comment-form" (ngSubmit)="addComment()">
+            <fieldset [disabled]="isSubmitting">
+              <div class="card-block">
+                <ckeditor
+                        #AddCommentCKE
+                        [(ngModel)]="ckeditorContent"
+                        [ngModelOptions]="{standalone: true}"
+                        [config]="ckeditorOption"
+                        debounce="">
                 </ckeditor>
               </div>
               <div class="card-footer">

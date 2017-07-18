@@ -1,6 +1,10 @@
 <div class="card">
+
   <div class="card-block">
-    <div [innerHTML]="comment.body"></div>
+    <div [innerHTML]="comment.body | sanitizeHtml"></div>
+      <span class="date-updated" *ngIf="comment.createdAt !== comment.updatedAt">
+        Updated at {{ comment.updatedAt | date: 'medium' }}
+      </span>
   </div>
   <div class="card-footer">
     <a class="comment-author" [routerLink]="['/profile',comment.author.username]">
@@ -14,6 +18,8 @@
       {{ comment.createdAt | date: 'medium' }}
     </span>
     <span class="mod-options" [hidden]="!canModify">
+      <i class="icon ion-edit" (click)="editClicked()" ></i>
+        <i></i>
       <i class="ion-trash-a" (click)="deleteClicked()" ></i>
     </span>
   </div>

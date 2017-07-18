@@ -8,7 +8,9 @@ import { ArticleComponent } from './article.component';
 import { ArticleResolver } from './article-resolver.service';
 import { MarkdownPipe } from './markdown.pipe';
 import { SharedModule } from '../shared';
-import { ArticleCommentComponent } from './article-comment.component'
+import { ArticleCommentComponent } from './article-comment.component';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { SanitizeHtml } from './sanitizeHtml.pipe';
 
 const articleRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -24,12 +26,14 @@ const articleRouting: ModuleWithProviders = RouterModule.forChild([
   imports: [
     articleRouting,
     SharedModule,
-    CKEditorModule
+    CKEditorModule,
+    Ng2Bs3ModalModule
   ],
   declarations: [
     ArticleComponent,
     ArticleCommentComponent,
-    MarkdownPipe
+    MarkdownPipe,
+    SanitizeHtml
   ],
 
   providers: [

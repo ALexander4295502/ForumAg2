@@ -1,9 +1,8 @@
 /**
  * Created by zhengyuan on 2017/5/10.
  */
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-
-import { Comment, User, UserService } from '../shared';
+import { Component, EventEmitter, Input, Output, OnInit, ViewChild } from '@angular/core';
+import { Comment, User, UserService, CommentsService } from '../shared';
 
 @Component({
   selector: 'article-comment',
@@ -16,8 +15,10 @@ export class ArticleCommentComponent implements OnInit {
 
   @Input() comment: Comment;
   @Output() deleteComment = new EventEmitter<boolean>();
+  @Output() editComment = new EventEmitter<boolean>();
 
   canModify: boolean;
+
 
   ngOnInit() {
     // Load the current user's data
@@ -31,6 +32,12 @@ export class ArticleCommentComponent implements OnInit {
   deleteClicked() {
     this.deleteComment.emit(true);
   }
+
+  editClicked() {
+    this.editComment.emit(true);
+  }
+
+
 
 
 }

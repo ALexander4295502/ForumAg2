@@ -1,8 +1,7 @@
 /**
  * Created by zhengyuan on 2017/5/10.
  */
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -25,9 +24,34 @@ export class ArticleComponent implements OnInit {
   isSubmitting = false;
   isDeleting = false;
   comments: Comment[];
-  commentControl = new FormControl();
+  editComment: Comment;
   commentFormErrors = {};
-  ckeditorContent: string
+  ckeditorContent: string;
+  editCommentActive: boolean;
+  ckeditorCommentContent: string;
+  deleteModalTitle: string;
+  preDeleteComment: Comment;
+  ckeditorOption = {
+    extraPlugins: 'divarea',
+    uiColor: '#2980b9',
+    forcePasteAsPlainText: true,
+    toolbar:
+        [
+          ['Source'],
+          ['Preview','Cut','Copy','Paste','PasteText','PasteFromWord'],
+          ['Undo','Redo','-','SelectAll','RemoveFormat'],
+          '/',
+          ['Bold','Italic','-','Subscript','Superscript'],
+          ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+          ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+          ['Link','Unlink','Anchor'],
+          ['Image','Table','SpecialChar'],
+          '/',
+          ['Styles','Format','FontSize'],
+          ['TextColor'],
+          ['Maximize', 'ShowBlocks']
+        ]
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -37,8 +61,12 @@ export class ArticleComponent implements OnInit {
     private userService: UserService,
   ) { }
 
+  @ViewChild('commentModal') commentModal:any;
+  @ViewChild('deleteConfirmModal') deleteConfirmModal:any;
+
   ngOnInit() {
     this.ckeditorContent = "Write comment here : )";
+    this.ckeditorCommentContent = "";
     // Retreive the prefetched article
     this.route.data.subscribe(
       (data: { article: Article }) => {
@@ -46,7 +74,6 @@ export class ArticleComponent implements OnInit {
         this.populateComments();
       }
     );
-
     // Load the current user's data
     this.userService.currentUser.subscribe(
       (userData: User) => {
@@ -55,6 +82,7 @@ export class ArticleComponent implements OnInit {
         this.canModify = (this.currentUser.username === this.article.author.username);
       }
     );
+    this.editCommentActive = false;
   }
 
   onToggleFavorite(favorited: boolean) {
@@ -90,7 +118,7 @@ export class ArticleComponent implements OnInit {
   addComment() {
     this.isSubmitting = true;
     this.commentFormErrors = {};
-    let commentBody = this.ckeditorContent;
+    const commentBody = this.ckeditorContent;
     this.commentsService
       .add(this.article.slug, commentBody)
       .subscribe(
@@ -107,13 +135,52 @@ export class ArticleComponent implements OnInit {
       );
   }
 
-  onDeleteComment(comment) {
-    this.commentsService.destroy(comment.id, this.article.slug)
+  onDelete(object) {
+    if(object.hasOwnProperty('slug')){
+      this.preDeleteComment = null;
+      this.deleteModalTitle = 'article';
+      this.deleteConfirmModal.open();
+    } else {
+      this.preDeleteComment = object;
+      this.deleteModalTitle = 'comment';
+      this.deleteConfirmModal.open();
+    }
+  }
+
+  confirmDeleteComment(){
+    this.commentsService.destroy(this.preDeleteComment.id, this.article.slug)
       .subscribe(
         success => {
-          this.comments = this.comments.filter((item) => item !== comment);
+          this.comments = this.comments.filter((item) => item !== this.preDeleteComment);
+          this.deleteConfirmModal.close();
         }
       );
+  }
+
+  onEditOpen(comment) {
+    this.editCommentActive = true;
+    this.ckeditorCommentContent = comment.body;
+    this.commentModal.open();
+    this.editComment = comment;
+  }
+
+  onEditSubmit(){
+    this.commentsService.update(this.editComment.id, this.article.slug, this.ckeditorCommentContent)
+        .subscribe(
+          comment => {
+            this.comments.forEach(function (_comment) {
+              if(_comment.id === comment.id) {
+                _comment.body = comment.body;
+                _comment.updatedAt = comment.updatedAt;
+              }
+            });
+            this.editCommentActive = false;
+            this.commentModal.close();
+          },
+          errors => {
+            console.log("Update Comment errors: ", errors);
+          }
+    );
   }
 
 }
