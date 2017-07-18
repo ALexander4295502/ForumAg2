@@ -30,9 +30,28 @@ export class ArticleComponent implements OnInit {
   editCommentActive: boolean;
   ckeditorCommentContent: string;
   deleteModalTitle: string;
-
-
   preDeleteComment: Comment;
+  ckeditorOption = {
+    extraPlugins: 'divarea',
+    uiColor: '#2980b9',
+    forcePasteAsPlainText: true,
+    toolbar:
+        [
+          ['Source'],
+          ['Preview','Cut','Copy','Paste','PasteText','PasteFromWord'],
+          ['Undo','Redo','-','SelectAll','RemoveFormat'],
+          '/',
+          ['Bold','Italic','-','Subscript','Superscript'],
+          ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+          ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+          ['Link','Unlink','Anchor'],
+          ['Image','Table','SpecialChar'],
+          '/',
+          ['Styles','Format','FontSize'],
+          ['TextColor'],
+          ['Maximize', 'ShowBlocks']
+        ]
+  };
 
   constructor(
     private route: ActivatedRoute,
