@@ -5034,6 +5034,14 @@ footer .attribution {
     height: 30px;
     width: 30px; }
 
+.article-update-data-posted {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    height: 1px;
+    font-size: 0.8rem;
+    color: #bbb; }
+
 .article-page .card {
     border: 1px solid #e5e5e5;
     box-shadow: none !important; }
@@ -5056,6 +5064,15 @@ footer .attribution {
     vertical-align: middle;
     margin-left: 5px;
     color: #bbb; }
+
+.article-page .card .date-updated {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    height: 1px;
+    font-size: 0.8rem;
+    color: #bbb; }
+
 .article-page .card .mod-options {
     float: right;
     color: #333;

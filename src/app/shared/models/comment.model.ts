@@ -7,5 +7,6 @@ export class Comment {
   id: number;
   body: string;
   createdAt: string;
+  updatedAt: string;
   author: Profile;
 }
