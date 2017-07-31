@@ -3,5 +3,5 @@
  */
 
 export class PageViewCount {
-    viewCount: number
+  viewCount: number;
 }

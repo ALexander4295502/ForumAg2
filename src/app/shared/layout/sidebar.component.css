@@ -1,0 +1,36 @@
+:host {
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+    position: fixed;
+}
+
+.chat-container {
+    width: 100%;
+    height: 100%;
+}
+
+.chat-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: left;
+}
+
+.sidenav-button {
+    height: 4em;
+    width: 10em;
+    text-align: center;
+}
+
+.sidenav-button:focus {
+    outline: none
+}
+
+.chat-sidenav {
+    padding: 20px;
+    width: 50%;
+    background-color: #ffffff;
+}

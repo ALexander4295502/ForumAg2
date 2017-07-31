@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     SimpleNotificationsModule.forRoot(),
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   declarations: [
     ArticleMetaComponent,
@@ -29,7 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FavoriteButtonComponent,
     FollowButtonComponent,
     ListErrorsComponent,
-    ShowAuthedDirective
+    ShowAuthedDirective,
   ],
   exports: [
     ArticleMetaComponent,

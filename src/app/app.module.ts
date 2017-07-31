@@ -8,6 +8,7 @@ import { SettingsModule } from './settings/settings.module';
 import { ProfileModule } from './profile/profile.module';
 import { EditorModule } from './editor/editor.module';
 import { ArticleModule } from './article/article.module';
+import { MdSidenavModule, MdButtonModule } from '@angular/material';
 import {
   ApiService,
   UserService,
@@ -20,8 +21,10 @@ import {
   TagsService,
   AuthGuard,
   ArticlesService,
-  PageViewCountService
+  PageViewCountService,
+  SidebarComponent
 } from './shared';
+import {ChatModule} from './chat/chat.module';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
@@ -30,6 +33,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent,
     FooterComponent,
     HeaderComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     SharedModule,
     SettingsModule,
     EditorModule,
+    ChatModule,
+    MdSidenavModule,
+    MdButtonModule
   ],
   providers: [
     ArticlesService,

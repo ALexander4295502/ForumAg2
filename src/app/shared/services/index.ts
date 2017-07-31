@@ -7,3 +7,5 @@ export * from './articles.service';
 export * from './comments.service';
 export * from './tags.service';
 export * from './pageViewCount.service';
+export * from './messages.service';
+export * from './threads.service';
