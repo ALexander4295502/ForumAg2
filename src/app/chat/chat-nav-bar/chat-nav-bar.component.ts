@@ -1,11 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import * as _ from 'lodash';
 import { ThreadsService, MessagesService } from '../../shared/services';
 import { Thread, Message } from '../../shared/models';
 
 @Component({
     selector: 'chat-nav-bar',
-    templateUrl: './chat-nav-bar.component.html'
+    templateUrl: './chat-nav-bar.component.html',
+    styleUrls: ['../chat.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class ChatNavBarComponent implements OnInit {
     unreadMessagesCount: number;

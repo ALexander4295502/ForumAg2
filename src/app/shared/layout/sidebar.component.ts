@@ -19,6 +19,10 @@ export class SidebarComponent implements OnInit{
         sidnav.open();
     }
 
+    sidenavOnOpen(): void{
+
+    }
+
     sidenavOnClose(): void{
         this.zindex = 0;
     }

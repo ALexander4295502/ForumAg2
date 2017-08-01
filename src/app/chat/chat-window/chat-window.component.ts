@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, ElementRef, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Thread, User, Message } from '../../shared/models';
 import { MessagesService,  ThreadsService, UserService} from '../../shared/services';
@@ -6,7 +6,9 @@ import { MessagesService,  ThreadsService, UserService} from '../../shared/servi
 @Component({
     selector: 'chat-window',
     templateUrl: 'chat-window.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['../chat.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class ChatWindowComponent implements OnInit {
     messages: Observable<any>;
