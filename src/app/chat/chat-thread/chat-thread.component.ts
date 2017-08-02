@@ -6,8 +6,6 @@ import { Thread } from '../../shared/models';
 @Component({
     selector: 'chat-thread',
     templateUrl: './chat-thread.component.html',
-    styleUrls: ['../chat.css'],
-    encapsulation: ViewEncapsulation.None
 })
 export class ChatThreadComponent implements OnInit {
     @Input() thread: Thread;

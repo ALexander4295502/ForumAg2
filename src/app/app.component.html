@@ -1,7 +1,18 @@
-<layout-header></layout-header>
+<md-sidenav-container class="chat-container">
+    <md-sidenav #sidenav class="chat-sidenav" mode="push" (open)="sidenavOnOpen()" (close)="sidenavOnClose()">
+        <layout-sidebar></layout-sidebar>
+    </md-sidenav>
 
-<layout-sidebar></layout-sidebar>
+    <div class="chat-sidenav-content">
+        <button class="sidenav-button" type="button" (click)="clickButton(sidenav)">Chat Window</button>
 
-<router-outlet></router-outlet>
+        <div style="min-height: 100vh">
+            <layout-header></layout-header>
 
-<layout-footer></layout-footer>
+            <router-outlet></router-outlet>
+        </div>
+        <layout-footer></layout-footer>
+
+    </div>
+
+</md-sidenav-container>

@@ -5,9 +5,7 @@ import { Message, Thread, User } from '../../shared/models';
 
 @Component({
   selector: 'chat-message',
-  templateUrl: './chat-message.component.html',
-  styleUrls: ['../chat.css'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './chat-message.component.html'
 })
 
 export class ChatMessageComponent implements OnInit {

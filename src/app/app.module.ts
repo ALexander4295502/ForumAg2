@@ -47,7 +47,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     EditorModule,
     ChatModule,
     MdSidenavModule,
-    MdButtonModule
+    MdButtonModule,
   ],
   providers: [
     ArticlesService,

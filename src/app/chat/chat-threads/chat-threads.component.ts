@@ -6,8 +6,6 @@ import { ThreadsService } from '../../shared/services';
 @Component({
     selector: 'chat-threads',
     templateUrl: 'chat-threads.component.html',
-    styleUrls: ['../chat.css'],
-    encapsulation: ViewEncapsulation.None
 })
 
 export class ChatThreadsComponent {

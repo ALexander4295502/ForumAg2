@@ -6,9 +6,7 @@ import { MessagesService,  ThreadsService, UserService} from '../../shared/servi
 @Component({
     selector: 'chat-window',
     templateUrl: 'chat-window.component.html',
-    styleUrls: ['../chat.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
 })
 export class ChatWindowComponent implements OnInit {
     messages: Observable<any>;
