@@ -30,8 +30,12 @@
     border-color: #2980b9 ;
 }
 
-.sidenav-button:focus {
-    outline: none
+.white-text {
+    color: #FFF!important;
+}
+
+.background-primary-color {
+    background-color: #2980b9!important;
 }
 
 .chat-sidenav {
@@ -39,3 +43,5 @@
     width: 50%;
     background-color: #ffffff;
 }
+
+@import "../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
