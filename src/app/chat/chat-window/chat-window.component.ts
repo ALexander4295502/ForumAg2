@@ -6,6 +6,7 @@ import { MessagesService,  ThreadsService, UserService} from '../../shared/servi
 @Component({
     selector: 'chat-window',
     templateUrl: 'chat-window.component.html',
+    styleUrls: ['../../../../node_modules/bootstrap/dist/css/bootstrap.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWindowComponent implements OnInit {

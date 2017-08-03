@@ -3,17 +3,17 @@
 
     <div class="avatar"
          *ngIf="!incoming">
-        <img src="{{message.author.avatarSrc}}">
+        <img src="{{message.author.image}}">
     </div>
 
     <div class="messages"
          [ngClass]="{'msg-sent': !incoming, 'msg-receive': incoming}">
-        <p>{{message.text}}</p>
-        <p class="time">{{message.sender}} • {{message.createdAt | fromNow}}</p>
+        <div [innerHTML]="message.body | sanitizeHtml"></div>
+        <p class="time">{{message.author.username}} • {{message.createdAt | fromNow}}</p>
     </div>
 
     <div class="avatar"
          *ngIf="incoming">
-        <img src="{{message.author.avatarSrc}}">
+        <img src="{{message.author.image}}">
     </div>
 </div>

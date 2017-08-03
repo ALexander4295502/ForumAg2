@@ -10,6 +10,7 @@ import { ShowAuthedDirective } from './show-authed.directive';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SanitizeHtml } from '../pipe/sanitizeHtml.pipe';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FollowButtonComponent,
     ListErrorsComponent,
     ShowAuthedDirective,
+    SanitizeHtml
   ],
   exports: [
     ArticleMetaComponent,
@@ -44,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListErrorsComponent,
     RouterModule,
     ShowAuthedDirective,
+    SanitizeHtml
   ]
 })
 export class SharedModule {}

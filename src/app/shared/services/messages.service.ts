@@ -48,6 +48,7 @@ export class MessagesService {
   }
 
   addMessage(message: Message): void {
+    console.log(`in message service: ${message.body}`);
     this.newMessages.next(message);
   }
 

@@ -1,10 +1,8 @@
-/* tslint:disable:max-line-length */
-import { User, Thread, Message } from '../../shared/models';
-import { MessagesService, ThreadsService, UserService } from '../../shared/services';
+import { User, Thread, Message } from '../models';
+import { MessagesService, ThreadsService, UserService } from '../services';
 import * as moment from 'moment';
 
 // the person using the app us Juliet
-let me: User;
 const ladycap: User = new User();
 ladycap.username = 'ladycap';
 const echo: User    = new User();
@@ -20,12 +18,6 @@ const tRev: Thread     = new Thread('tRev', rev.username, rev.image);
 const tWait: Thread    = new Thread('tWait', wait.username, wait.image);
 
 const initialMessages: Array<Message> = [
-    new Message({
-        author: me,
-        createdAt: moment().subtract(45, 'minutes').toDate(),
-        body: 'Yet let me weep for such a feeling loss.',
-        thread: tLadycap
-    }),
     new Message({
         author: ladycap,
         createdAt: moment().subtract(20, 'minutes').toDate(),
@@ -53,15 +45,13 @@ const initialMessages: Array<Message> = [
 ];
 
 export class ChatExampleData {
+
     static init(messagesService: MessagesService,
                 threadsService: ThreadsService,
-                userService: UserService): void {
+                ): void {
 
         // TODO make `messages` hot
         messagesService.messages.subscribe(() => ({}));
-
-        // set "Juliet" as the current user
-        me = userService.getCurrentUser();
 
         // create the initial messages
         initialMessages.map( (message: Message) => messagesService.addMessage(message) );
@@ -73,16 +63,29 @@ export class ChatExampleData {
 
     static setupBots(messagesService: MessagesService): void {
 
+        // ladycap bot
+        messagesService.messagesForThreadUser(tLadycap, ladycap)
+            .forEach((message: Message): void => {
+                messagesService.addMessage(
+                    new Message({
+                        author: ladycap,
+                        body: message.body,
+                        thread: tLadycap
+                    })
+                );
+            }, null);
+
         // echo bot
         messagesService.messagesForThreadUser(tEcho, echo)
             .forEach( (message: Message): void => {
-                    messagesService.addMessage(
-                        new Message({
-                            author: echo,
-                            body: message.body,
-                            thread: tEcho
-                        })
-                    );
+                    console.log(`In echo bot: ${message.body}`)
+                    let sendMsg = new Message()
+                    messagesService.addMessage(new Message({
+                        author: echo,
+                        createdAt: moment().toDate(),
+                        body: message.body,
+                        thread: tEcho
+                    }));
                 },
                 null);
 
@@ -93,7 +96,7 @@ export class ChatExampleData {
                     messagesService.addMessage(
                         new Message({
                             author: rev,
-                            text: message.body.split('').reverse().join(''),
+                            body: message.body.split('').reverse().join(''),
                             thread: tRev
                         })
                     );
@@ -119,7 +122,7 @@ export class ChatExampleData {
                             messagesService.addMessage(
                                 new Message({
                                     author: wait,
-                                    text: reply,
+                                    body: reply,
                                     thread: tWait
                                 })
                             );

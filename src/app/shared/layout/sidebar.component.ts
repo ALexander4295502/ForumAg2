@@ -1,4 +1,7 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChatExampleData } from './chat-setup-data';
+
+import { ThreadsService, MessagesService } from '../services';
 
 @Component({
     selector: 'layout-sidebar',
@@ -6,12 +9,11 @@ import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core
     styleUrls: ['./sidebar.component.css',],
     encapsulation: ViewEncapsulation.Native
 })
-export class SidebarComponent implements OnInit{
-    @HostBinding('style.z-index')
-    private zindex;
+export class SidebarComponent {
 
-    ngOnInit(): void {
-        this.zindex = -1;
+    constructor(public messagesService: MessagesService,
+                public threadsService: ThreadsService) {
+        ChatExampleData.init(messagesService, threadsService);
     }
 
 }

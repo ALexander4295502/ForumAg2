@@ -9,7 +9,7 @@ import { FromNowPipe } from '../pipe/from-now.pipe';
 import { MessagesService } from '../shared/services/messages.service';
 import { ThreadsService } from '../shared/services/threads.service';
 import { UserService } from '../shared/services/user.service';
-import {SharedModule} from '../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import {SharedModule} from '../shared/shared.module';
         ChatNavBarComponent,
         ChatWindowComponent,
         ChatPageComponent,
-        FromNowPipe
+        FromNowPipe,
     ],
     imports: [
         SharedModule

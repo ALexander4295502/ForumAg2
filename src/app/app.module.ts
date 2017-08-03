@@ -24,7 +24,7 @@ import {
   PageViewCountService,
   SidebarComponent
 } from './shared';
-import {ChatModule} from './chat/chat.module';
+import { ChatModule } from './chat/chat.module';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 

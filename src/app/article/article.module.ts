@@ -10,7 +10,6 @@ import { MarkdownPipe } from '../pipe/markdown.pipe';
 import { SharedModule } from '../shared';
 import { ArticleCommentComponent } from './article-comment.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { SanitizeHtml } from '../pipe/sanitizeHtml.pipe';
 
 const articleRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -33,7 +32,6 @@ const articleRouting: ModuleWithProviders = RouterModule.forChild([
     ArticleComponent,
     ArticleCommentComponent,
     MarkdownPipe,
-    SanitizeHtml
   ],
 
   providers: [
