@@ -10,6 +10,7 @@ import { MessagesService } from '../shared/services/messages.service';
 import { ThreadsService } from '../shared/services/threads.service';
 import { UserService } from '../shared/services/user.service';
 import { SharedModule } from '../shared/shared.module';
+import { NgGridModule } from 'angular2-grid';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { SharedModule } from '../shared/shared.module';
         FromNowPipe,
     ],
     imports: [
-        SharedModule
+        SharedModule,
+        NgGridModule
     ],
     providers: [
         MessagesService, ThreadsService, UserService

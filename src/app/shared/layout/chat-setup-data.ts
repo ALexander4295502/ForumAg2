@@ -5,12 +5,16 @@ import * as moment from 'moment';
 // the person using the app us Juliet
 const ladycap: User = new User();
 ladycap.username = 'ladycap';
+ladycap.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
 const echo: User    = new User();
 echo.username = 'echo';
+echo.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
 const rev: User     = new User();
 rev.username = 'rev';
+rev.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
 const wait: User    = new User();
 wait.username = 'wait';
+wait.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
 
 const tLadycap: Thread = new Thread('tLadycap', ladycap.username, ladycap.image);
 const tEcho: Thread    = new Thread('tEcho', echo.username, echo.image);
