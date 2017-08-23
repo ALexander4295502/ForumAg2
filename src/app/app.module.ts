@@ -22,6 +22,7 @@ import {
   AuthGuard,
   ArticlesService,
   PageViewCountService,
+  ChatService,
   SidebarComponent
 } from './shared';
 import { ChatModule } from './chat/chat.module';
@@ -58,6 +59,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     ProfilesService,
     TagsService,
     UserService,
+    ChatService,
     PageViewCountService
   ],
   bootstrap: [AppComponent]

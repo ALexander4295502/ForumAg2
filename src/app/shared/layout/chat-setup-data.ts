@@ -23,25 +23,25 @@ const tWait: Thread    = new Thread('tWait', wait.username, wait.image);
 
 const initialMessages: Array<Message> = [
     new Message({
-        author: ladycap,
+        author: ladycap.username,
         createdAt: moment().subtract(20, 'minutes').toDate(),
         body: 'So shall you feel the loss, but not the friend which you weep for.',
         thread: tLadycap
     }),
     new Message({
-        author: echo,
+        author: echo.username,
         createdAt: moment().subtract(1, 'minutes').toDate(),
         body: `I\'ll echo whatever you send me`,
         thread: tEcho
     }),
     new Message({
-        author: rev,
+        author: rev.username,
         createdAt: moment().subtract(3, 'minutes').toDate(),
         body: `I\'ll reverse whatever you send me`,
         thread: tRev
     }),
     new Message({
-        author: wait,
+        author: wait.username,
         createdAt: moment().subtract(4, 'minutes').toDate(),
         body: `I\'ll wait however many seconds you send to me before responding. Try sending '3'`,
         thread: tWait
@@ -72,7 +72,7 @@ export class ChatExampleData {
             .forEach((message: Message): void => {
                 messagesService.addMessage(
                     new Message({
-                        author: ladycap,
+                        author: ladycap.username,
                         body: message.body,
                         thread: tLadycap
                     })
@@ -85,7 +85,7 @@ export class ChatExampleData {
                     console.log(`In echo bot: ${message.body}`)
                     let sendMsg = new Message()
                     messagesService.addMessage(new Message({
-                        author: echo,
+                        author: echo.username,
                         createdAt: moment().toDate(),
                         body: message.body,
                         thread: tEcho
@@ -99,7 +99,7 @@ export class ChatExampleData {
             .forEach( (message: Message): void => {
                     messagesService.addMessage(
                         new Message({
-                            author: rev,
+                            author: rev.username,
                             body: message.body.split('').reverse().join(''),
                             thread: tRev
                         })
@@ -125,7 +125,7 @@ export class ChatExampleData {
                         () => {
                             messagesService.addMessage(
                                 new Message({
-                                    author: wait,
+                                    author: wait.username,
                                     body: reply,
                                     thread: tWait
                                 })

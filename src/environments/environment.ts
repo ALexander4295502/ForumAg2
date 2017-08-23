@@ -7,8 +7,10 @@ import { isDevMode } from '@angular/core';
 
 export const environment = (isDevMode())? {
   production: false,
-  api_url: 'http://127.0.0.1:3000/api'
+  api_url: 'http://127.0.0.1:3000/api',
+  socket_url: 'http://127.0.0.1:3000/'
 } : {
   production: true,
-  api_url: 'https://obscure-headland-52142.herokuapp.com/api'
+  api_url: 'https://obscure-headland-52142.herokuapp.com/api',
+  socket_url: 'https://obscure-headland-52142.herokuapp.com/'
 };

@@ -1,7 +1,7 @@
 import { Component, Inject, ElementRef, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Thread, User, Message } from '../../shared/models';
-import { MessagesService,  ThreadsService, UserService} from '../../shared/services';
+import { MessagesService,  ThreadsService, UserService, ChatService} from '../../shared/services';
 
 @Component({
     selector: 'chat-window',
@@ -15,7 +15,8 @@ export class ChatWindowComponent implements OnInit {
     draftMessage: Message;
     currentUser: User;
 
-    constructor(public messagesService: MessagesService,
+    constructor(public chatService: ChatService,
+                public messagesService: MessagesService,
                 public threadsService: ThreadsService,
                 public usersService: UserService,
                 public el: ElementRef) {
@@ -50,10 +51,22 @@ export class ChatWindowComponent implements OnInit {
 
     sendMessage(): void {
         const m: Message = this.draftMessage;
-        m.author = this.currentUser;
+        m.author = {
+            username: this.currentUser.username,
+            image: this.currentUser.image,
+            email: this.currentUser.email,
+            bio: this.currentUser.bio,
+            token: null
+        };
         m.thread = this.currentThread;
         m.isRead = true;
         this.messagesService.addMessage(m);
+        this.chatService.emitMessage({
+            author: m.author,
+            createdAt: m.createdAt,
+            body: m.body,
+            to: this.currentThread.name
+        });
         this.draftMessage = new Message();
     }
 
