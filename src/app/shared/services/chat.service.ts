@@ -84,7 +84,6 @@ export class ChatService {
     }
 
     emitMessage(_message) {
-        console.log(_message);
         this.socket.emit('sendMessage', _message);
     }
 

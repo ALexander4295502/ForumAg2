@@ -1,50 +1,20 @@
 import { User, Thread, Message } from '../models';
-import { MessagesService, ThreadsService, UserService } from '../services';
+import { MessagesService, ThreadsService, ApiService } from '../services';
 import * as moment from 'moment';
 
 // the person using the app us Juliet
-const ladycap: User = new User();
-ladycap.username = 'ladycap';
-ladycap.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
-const echo: User    = new User();
-echo.username = 'echo';
-echo.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
-const rev: User     = new User();
-rev.username = 'rev';
-rev.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
-const wait: User    = new User();
-wait.username = 'wait';
-wait.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
+const chatbot: User = new User();
+chatbot.username = 'Chatbot';
+chatbot.image = '/assets/images/chatbot.png';
 
-const tLadycap: Thread = new Thread('tLadycap', ladycap.username, ladycap.image);
-const tEcho: Thread    = new Thread('tEcho', echo.username, echo.image);
-const tRev: Thread     = new Thread('tRev', rev.username, rev.image);
-const tWait: Thread    = new Thread('tWait', wait.username, wait.image);
+const tChatbot: Thread = new Thread('tChatbot', chatbot.username, chatbot.image);
 
 const initialMessages: Array<Message> = [
     new Message({
-        author: ladycap.username,
+        author: chatbot,
         createdAt: moment().subtract(20, 'minutes').toDate(),
         body: 'So shall you feel the loss, but not the friend which you weep for.',
-        thread: tLadycap
-    }),
-    new Message({
-        author: echo.username,
-        createdAt: moment().subtract(1, 'minutes').toDate(),
-        body: `I\'ll echo whatever you send me`,
-        thread: tEcho
-    }),
-    new Message({
-        author: rev.username,
-        createdAt: moment().subtract(3, 'minutes').toDate(),
-        body: `I\'ll reverse whatever you send me`,
-        thread: tRev
-    }),
-    new Message({
-        author: wait.username,
-        createdAt: moment().subtract(4, 'minutes').toDate(),
-        body: `I\'ll wait however many seconds you send to me before responding. Try sending '3'`,
-        thread: tWait
+        thread: tChatbot
     }),
 ];
 
@@ -52,6 +22,7 @@ export class ChatExampleData {
 
     static init(messagesService: MessagesService,
                 threadsService: ThreadsService,
+                apiService: ApiService,
                 ): void {
 
         // TODO make `messages` hot
@@ -60,80 +31,26 @@ export class ChatExampleData {
         // create the initial messages
         initialMessages.map( (message: Message) => messagesService.addMessage(message) );
 
-        threadsService.setCurrentThread(tEcho);
+        this.setupBots(messagesService, apiService);
 
-        this.setupBots(messagesService);
+        threadsService.setCurrentThread(tChatbot);
     }
 
-    static setupBots(messagesService: MessagesService): void {
+    static setupBots(messagesService: MessagesService, apiService: ApiService): void {
 
-        // ladycap bot
-        messagesService.messagesForThreadUser(tLadycap, ladycap)
+        // chatbot bot
+        messagesService.messagesForThreadUser(tChatbot, chatbot)
             .forEach((message: Message): void => {
-                messagesService.addMessage(
-                    new Message({
-                        author: ladycap.username,
-                        body: message.body,
-                        thread: tLadycap
-                    })
-                );
-            }, null);
-
-        // echo bot
-        messagesService.messagesForThreadUser(tEcho, echo)
-            .forEach( (message: Message): void => {
-                    console.log(`In echo bot: ${message.body}`)
-                    let sendMsg = new Message()
-                    messagesService.addMessage(new Message({
-                        author: echo.username,
-                        createdAt: moment().toDate(),
-                        body: message.body,
-                        thread: tEcho
-                    }));
-                },
-                null);
-
-
-        // reverse bot
-        messagesService.messagesForThreadUser(tRev, rev)
-            .forEach( (message: Message): void => {
+                apiService.botPost({content: message.body})
+                    .subscribe(res => {
                     messagesService.addMessage(
                         new Message({
-                            author: rev.username,
-                            body: message.body.split('').reverse().join(''),
-                            thread: tRev
-                        })
-                    );
-                },
-                null);
-
-        // waiting bot
-        messagesService.messagesForThreadUser(tWait, wait)
-            .forEach( (message: Message): void => {
-
-                    let waitTime: number = parseInt(message.body, 10);
-                    let reply: string;
-
-                    if (isNaN(waitTime)) {
-                        waitTime = 0;
-                        reply = `I didn\'t understand ${message.body}. Try sending me a number`;
-                    } else {
-                        reply = `I waited ${waitTime} seconds to send you this.`;
-                    }
-
-                    setTimeout(
-                        () => {
-                            messagesService.addMessage(
-                                new Message({
-                                    author: wait.username,
-                                    body: reply,
-                                    thread: tWait
-                                })
-                            );
-                        },
-                        waitTime * 1000);
-                },
-                null);
+                            author: chatbot,
+                            body: res.message,
+                            thread: tChatbot
+                        }));
+                });
+            }, null);
 
 
     }

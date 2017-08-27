@@ -17,7 +17,7 @@ export class ApiService {
   private setHeaders(): Headers {
     let headersConfig = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     };
 
     if (this.jwtService.getToken()) {
@@ -63,5 +63,16 @@ export class ApiService {
     )
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
+  }
+
+  botPost(body: Object = {}): Observable<any> {
+    let headers = this.setHeaders();
+    headers.append('Access-Control-Allow-Origin','*');
+    return this.http.post(
+        `${environment.chatbot_url}`,
+        JSON.stringify(body),
+        { headers: headers }
+    ).catch(this.formatErrors)
+        .map((res:Response) => res.json());
   }
 }

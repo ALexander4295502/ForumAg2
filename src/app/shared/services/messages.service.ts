@@ -4,9 +4,7 @@ import { User, Thread, Message } from '../models';
 
 const initialMessages: Message[] = [];
 
-interface IMessagesOperation extends Function {
-  (messages: Message[]): Message[];
-}
+type IMessagesOperation = (messages: Message[]) => Message[];
 
 @Injectable()
 export class MessagesService {
@@ -42,13 +40,12 @@ export class MessagesService {
             message.isRead = true;
           }
           return message;
-        })
+        });
       };
     }).subscribe(this.updates);
   }
 
   addMessage(message: Message): void {
-    console.log(`in message service: ${message.body}`);
     this.newMessages.next(message);
   }
 
