@@ -59,6 +59,7 @@ export class ChatWindowComponent implements OnInit {
             token: null
         };
         m.thread = this.currentThread;
+        m.createdAt = new Date().toString();
         m.isRead = true;
         this.messagesService.addMessage(m);
         this.chatService.emitMessage({

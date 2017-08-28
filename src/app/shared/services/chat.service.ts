@@ -74,7 +74,6 @@ export class ChatService {
             const _thread: Thread = new Thread(undefined, _user.username, _user.image);
             const _message: Message = new Message({
                 author: _user,
-                createdAt: moment().toDate(),
                 body: `Hello, nice to meet you. I am ${_username}.`,
                 thread: _thread
             })
@@ -89,7 +88,7 @@ export class ChatService {
 
     findThread(_username): Observable<Thread> {
         return this.threadsService.orderedThreads
-            .map(threads => threads.find(thread => thread.name === _username)).take(1);
+            .map(threads => threads.find(thread => thread.name === _username)).first();
     }
 
 

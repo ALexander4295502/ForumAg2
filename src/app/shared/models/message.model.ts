@@ -13,7 +13,7 @@ export class Message {
     constructor(obj?: any) {
         this.id              = obj && obj.id              || UUID.UUID();
         this.isRead          = obj && obj.isRead          || false;
-        this.createdAt       = obj && obj.createdAt       || new Date();
+        this.createdAt       = obj && obj.createdAt       || new Date().toString();
         this.author          = obj && obj.author          || null;
         this.body            = obj && obj.body            || null;
         this.thread          = obj && obj.thread          || null;

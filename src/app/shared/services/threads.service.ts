@@ -18,7 +18,9 @@ export class ThreadsService {
         messages.map((message: Message) => {
           threads[message.thread.id] = threads[message.thread.id] || message.thread;
           const messagesThread: Thread = threads[message.thread.id];
-          if(!messagesThread.lastMessage || messagesThread.lastMessage.createdAt < message.createdAt) {
+          if(typeof messagesThread.lastMessage === 'undefined' ||
+              Date.parse(messagesThread.lastMessage.createdAt) < Date.parse(message.createdAt)
+          ) {
             messagesThread.lastMessage = message;
           }
         });
