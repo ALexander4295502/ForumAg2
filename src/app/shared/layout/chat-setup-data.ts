@@ -13,7 +13,7 @@ const initialMessages: Array<Message> = [
     new Message({
         author: chatbot,
         createdAt: moment().subtract(20, 'minutes').toDate(),
-        body: 'So shall you feel the loss, but not the friend which you weep for.',
+        body: 'Sorry, I am still in construction and may not be able to reply.',
         thread: tChatbot
     }),
 ];
