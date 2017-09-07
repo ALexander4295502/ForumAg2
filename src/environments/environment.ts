@@ -12,7 +12,7 @@ export const environment = (isDevMode())? {
   chatbot_url: 'http://localhost:8000/forum_chatbot/6e373c6c42a558fba140297d50373047b0287e27ded405416e'
 } : {
   production: true,
-  api_url: 'https://obscure-headland-52142.herokuapp.com/api',
-  socket_url: 'https://obscure-headland-52142.herokuapp.com/',
+  api_url: 'https://api.zheng.town/api',
+  socket_url: 'https://api.zheng.town/',
   chatbot_url: ''
 };
