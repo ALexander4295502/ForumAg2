@@ -18,8 +18,10 @@ export class AppComponent implements OnInit{
   ) {}
 
   isAuthenticated: boolean;
+  isChrome: boolean;
 
   ngOnInit() {
+    this.isChrome = window.navigator.appVersion.includes('Chrome');
     this.userService.populate();
       this.userService.isAuthenticated.subscribe(
           (authenticated) => {

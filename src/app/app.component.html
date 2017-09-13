@@ -8,7 +8,7 @@
                 md-raised-button
                 class="sidenav-button background-primary-color white-text"
                 (click)="clickButton(sidenav)"
-                *ngIf="isAuthenticated"
+                *ngIf="isAuthenticated && isChrome"
         >
             Chat Window
         </button>

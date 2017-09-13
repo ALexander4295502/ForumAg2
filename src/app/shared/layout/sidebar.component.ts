@@ -7,7 +7,7 @@ import { ThreadsService, MessagesService, UserService, ChatService, ApiService }
     selector: 'layout-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css',],
-    encapsulation: ViewEncapsulation.Native
+    encapsulation: window.navigator.appVersion.includes('Chrome') ? ViewEncapsulation.Native : ViewEncapsulation.Emulated
 })
 export class SidebarComponent implements OnInit{
 
