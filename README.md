@@ -1,4 +1,5 @@
 # Forum Frontend
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.2.
 
