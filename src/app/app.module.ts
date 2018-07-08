@@ -8,7 +8,7 @@ import { SettingsModule } from './settings/settings.module';
 import { ProfileModule } from './profile/profile.module';
 import { EditorModule } from './editor/editor.module';
 import { ArticleModule } from './article/article.module';
-import { MdSidenavModule, MdButtonModule } from '@angular/material';
+import { MatSidenavModule, MatButtonModule } from '@angular/material';
 import {
   ApiService,
   UserService,
@@ -47,8 +47,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     SettingsModule,
     EditorModule,
     ChatModule,
-    MdSidenavModule,
-    MdButtonModule,
+    MatSidenavModule,
+    MatButtonModule,
   ],
   providers: [
     ArticlesService,

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 import { UserService } from './shared';
 import { Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
       );
   }
 
-    clickButton(sidnav: MdSidenav): void {
+    clickButton(sidnav: MatSidenav): void {
         if (!this.isAuthenticated) {
             this.notificationsService.error(
                 'You must login in.',
