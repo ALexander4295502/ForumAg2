@@ -7,8 +7,12 @@ import { isDevMode } from '@angular/core';
 
 export const environment = (isDevMode())? {
   production: false,
-  api_url: 'http://127.0.0.1:3000/api'
+  api_url: 'http://127.0.0.1:3000/api',
+  socket_url: 'http://127.0.0.1:3000/',
+  chatbot_url: 'http://localhost:8000/forum_chatbot/6e373c6c42a558fba140297d50373047b0287e27ded405416e'
 } : {
   production: true,
-  api_url: 'https://obscure-headland-52142.herokuapp.com/api'
+  api_url: 'https://api.zheng.town/api',
+  socket_url: 'https://api.zheng.town/',
+  chatbot_url: ''
 };

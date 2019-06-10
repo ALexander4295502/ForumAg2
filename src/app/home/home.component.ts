@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit{
     private tagsService: TagsService,
     private userService: UserService,
     private pageViewCountService: PageViewCountService,
-    private _service: NotificationsService
+    private notificationsService: NotificationsService
   ) {}
 
   isAuthenticated: boolean;
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit{
 
   setListTo(type: string = '', filters: Object = {}){
     if (type === 'feed' && !this.isAuthenticated) {
-      this._service.error(
+      this.notificationsService.error(
           'You must login in.',
           'Wait for 2 second to login in page'
       );

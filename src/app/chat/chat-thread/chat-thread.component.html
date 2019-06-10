@@ -7,7 +7,7 @@
         <h5 class="media-heading contact-name">{{thread.name}}
             <span *ngIf="selected">&bull;</span>
         </h5>
-        <small class="message-preview">{{thread.lastMessage.text}}</small>
+        <small class="message-preview">{{thread.lastMessage.author.username}}: {{thread.lastMessage.body}}</small>
     </div>
     <a (click)="clicked($event)" class="div-link">Select</a>
 </div>

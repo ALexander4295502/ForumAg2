@@ -9,3 +9,4 @@ export * from './tags.service';
 export * from './pageViewCount.service';
 export * from './messages.service';
 export * from './threads.service';
+export * from './chat.service';

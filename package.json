@@ -4,13 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod",
-    "deploy": "ng build -prod -sm -ec -bh /ForumAg2/ && gh-pages -d dist"
+    "start": "serve dist/ --single",
+    "postinstall": "ng build --env=prod",
+    "build": "ng build --env=prod"
   },
   "private": true,
   "dependencies": {
@@ -27,26 +26,28 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
-    "angular2-counto": "^1.2.3",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "0.8.4"
+  },
+  "devDependencies": {
+    "angular2-counto": "1.2.3",
     "angular2-notifications": "^0.7.4",
     "angular2-uuid": "^1.1.1",
     "bootstrap": "^3.3.7",
-    "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "moment": "^2.18.1",
     "ng2-bs3-modal": "^0.10.4",
-    "ng2-ckeditor": "^1.1.9",
+    "ng2-ckeditor": "1.1.9",
     "ng2-opd-popup": "^1.1.21",
     "ngx-modal": "0.0.29",
-    "rxjs": "^5.1.0",
+    "socket.io": "^2.0.3",
     "uuid": "^3.1.0",
-    "zone.js": "^0.8.4"
-  },
-  "devDependencies": {
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
+    "angular2-grid": "^2.0.7",
     "codelyzer": "~2.0.0",
     "gh-pages": "^1.0.0",
     "jasmine-core": "~2.5.2",
@@ -58,6 +59,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.0",
+    "serve": "^6.0.6",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0"
