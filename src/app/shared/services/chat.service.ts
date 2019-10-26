@@ -1,6 +1,12 @@
 /**
  * Created by zhengyuan on 2017/8/22.
  */
+/**
+ * 选择这段代码的原因是想说明自己对于一些接触不多的技术具有较快的上手能力。
+ * 因为自己之前一直想给自己的论坛增加一个实时通讯的功能，然后通过比较一些常见的实现方法最终决定使用Socket.IO+rxjs的方式来实现。
+ * 但因为自己之前接触rxjs这个库并不多，所以在实现功能和最后的整合过程中还遇到了许多的问题，
+ * 但通过不断的debug以及查询相关document最终还是完成了这一功能的实现。
+ */
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { ProfilesService } from './profiles.service';
